@@ -38,7 +38,7 @@ const posts = [
         "media": "https://unsplash.it/600/400?image=24",
         "author": {
             "name": "Luca Formicola",
-            "image": null
+            "image": "https://unsplash.it/600/400?image=24"
         },
         "likes": 56,
         "created": "2021-04-03"
@@ -55,14 +55,33 @@ const posts = [
         "created": "2021-03-05"
     }
 ];
+let i=0;
+
 //SELEZIONI
-const eleContainer = document.querySelector("#container")
-render()
+const eleContainer = document.querySelector("#container");
+let liked = [];
+arrClass = posts.map((element) => element.author['name'].replaceAll(' ', ''))
+render();
+arrbtn = posts.map((element) => {
+    const btn = document.getElementById(element.id);
+    return btn
+})
+
+arrbtn.forEach((element) => {
+    element.addEventListener('click', 
+    function(){
+        if(this.classList.contains('like-button--liked')){
+            
+        }
+       this.classList.toggle('like-button--liked')
+    })
+})
+arrbtn[0]
 //RENDER
 function render (){
     eleContainer.innerHTML = ' ';
     posts.forEach((element) => {
-        console.log(element.author['image'])
+        
         eleContainer.innerHTML += `<div class="post">
         <div class="post__header">
             <div class="post-meta">                    
@@ -71,7 +90,7 @@ function render (){
                 </div>
                 <div class="post-meta__data">
                     <div class="post-meta__author">${element.author['name']}</div>
-                    <div class="post-meta__time">4 mesi fa</div>
+                    <div class="post-meta__time">${element.created}</div>
                 </div>                    
             </div>
         </div>
@@ -84,17 +103,18 @@ function render (){
         <div class="post__footer">
             <div class="likes js-likes">
                 <div class="likes__cta">
-                    <a class="like-button  js-like-button" href="#" data-postid="1">
+                <button id="${element.id}"class="like-button  js-like-button" href="#" data-postid="1">
                         <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                         <span class="like-button__label">Mi Piace</span>
-                    </a>
+                    </button>
                 </div>
                 <div class="likes__counter">
-                    Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                    Piace a <b class="js-likes-counter ${arrClass[i]} ">${element.likes}</b> persone
                 </div>
             </div> 
         </div>            
     </div>`
+    i++;
     })
 
 }
